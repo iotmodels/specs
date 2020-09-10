@@ -3,7 +3,7 @@
 - Contribution guidelines published
 - CELA review
 - GitHub repos/org owned by Microsoft
-- Resolution convention fully defined and agreed by partners teams. This includes mode-index, folder structure, codeowners.
+- Resolution convention fully defined and agreed by partners teams. This includes `model-index.json`, folder structure, codeowners.
 - Validation checks in place (automated + manual)
 - Public models migrated
 - IoT Explorer can resolve models from public repo (and custom repos)
