@@ -1,6 +1,6 @@
 # Model Index Spec
 
-A model is composed by a set of interfaces identified by a unique id in the form of a DTMI. 
+A model is composed by a set of interfaces identified by a unique id in the form of a DTMI.
 The model repo stores one interface version per file following the structure defined below.
 
 ## Folder and File structure
@@ -15,7 +15,7 @@ models/com-example-thermostat/1.json
 
 Folders are associated to `CODEOWNERS` (Spec TBD) to ensure that any future updates are reviewed by the user who initially created the file.
 
->Note: Once a DTMI is registered with specific casing all other case variants will be dissalowed.
+>Note: Once a DTMI is registered with specific casing all other case variants will be stored under the same folder, owned by the same user.
 
 ## Model Index
 
@@ -40,7 +40,7 @@ For a model repo url of `https://iotmodels.github.io/registry` the index and the
 
 ## Dependencies
 
-If the interface has any dependencies, via `extends` or `component interfaces`, these IDs will be added to the `model-index.json` file.
+If the interface has any dependencies, via `extends` or `component interfaces`, these IDs will be added to the `model-index.json` as dependencies for each id.
 
 ```json
 {
@@ -62,9 +62,15 @@ If the interface has any dependencies, via `extends` or `component interfaces`, 
 
 ## Other resolvable @id
 
-DTDL allows to specify `@id` at any level in the document, for schemas, properties and fields. To guarantee that all speficied `@id`s are public, the index will contain a first level entry for each dtmi pointing to file with the definition.
+DTDL v2 allows to reuse elements by adding and `@id` that can be referenced in any other interface, this features implies that any element (schema, property, command, interface) with an `@id` will be publicily available, hence _resolvable_.
 
-Given the next interface:
+The first version of the model repo will block the submission of models that use `@id` for any element that is not the top level interface of the file being submitted.
+
+>Note: Inline schemas will be accepted as long they dont use an `@id`
+
+### Sample interfaces that will be blocked in the first model repo release
+
+Id not allowed in properties
 
 ```json
 {
@@ -82,13 +88,51 @@ Given the next interface:
   }
 ```
 
-will produce the next entries in the `model-index.json` file:
+Id not allowed in schemas (that means schemas are not allowed since Id is mandatory)
 
 ```json
-    "dtmi:com:demo;1": {
-        "path" : "models/com-demo/1.json"
-    },
-    "dtmi:com:demo:name;1": {
-        "path" : "models/com-demo/1.json"
+{
+  "@context": "dtmi:dtdl:context;2",
+  "@id": "dtmi:com:example:InterfaceA;1",
+  "@type": "Interface",
+  "schemas": [
+    {
+      "@type": "Object",
+      "@id": "dtmi:com:example:InterfaceA:person;1",
+      "fields": [
+        { "name": "firstName", "schema": "string"},
+        { "name": "lastName", "schema": "string"},
+        { "name": "age","schema": "integer"}
+      ]
     }
+  ]
+}
+```
+
+Id not allowed in fields
+
+```json
+{
+    "@context": "dtmi:dtdl:context;2",
+    "@id": "dtmi:com:example:InterfaceB;1",
+    "@type": "Interface",
+    "contents": [
+        {
+            "@type": "Property",
+            "name": "aPerson",
+            "schema": {
+                "@type": "Object",
+                "fields": [
+                  {
+                      "@id": "dtmi:com:example:InterfaceB:person:name;1",
+                      "name": "firstName", 
+                      "schema": "string"
+                    },
+                  { "name": "lastName", "schema": "string"},
+                  { "name": "age", "schema": "integer"}
+                ]
+            }
+        }
+    ]
+}
 ```
