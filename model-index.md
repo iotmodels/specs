@@ -38,14 +38,14 @@ The `model-index.json` file contains a JSON Map with all the DTMI and relative p
 
 The DTMI stored in the `model-index.json` is case sensitive, however based on the file/folder rules, only one DTMI can be stored with specific casing.
 
-Valid
+:heavy_check_mark: Valid
 
 ```text
 dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
 dtmi:com:example:thermostat;2 -> models/com-example/thermostat-2.json
 ```
 
-Invalid
+:X: Invalid
 
 ```text
 dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
@@ -99,7 +99,7 @@ The model repo must guarantee that all `@id` included in the interfaces are uniq
 - `@id` elements from interfaces are guaranteed to be unique by the `model-index.json` file.
 - All other `@id` elements from schemas, fields, and properties must be _under_ the root DTMI established by the interface.
 
-Valid
+:heavy_check_mark: Valid
 
 ```json
 {
@@ -117,7 +117,7 @@ Valid
   }
 ```
 
-Invalid
+:X: Invalid
 
 ```json
 {
