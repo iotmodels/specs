@@ -12,10 +12,10 @@ A DTMI can be translated to a relative path with the following rules:
   - Remove the `dtmi` prefix
   - Replace `:` with `-`
   - Convert the lower case invariant
-- File name is the version number with the `.json` extension
+- File name is the last DTMI segment plust the version number with the `.json` extension
 
 ```text
-dtmi:com:example:Thermostat;1 -> models/com-example-thermostat/1.json
+dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
 ```
 
 Folders are associated to `CODEOWNERS` (Spec TBD) to ensure that any future updates are reviewed by the user who initially created the folder.
@@ -29,7 +29,7 @@ The `model-index.json` file contains a JSON Map with all the DTMI and relative p
 ```json
 {
     "dtmi:com:example:Thermostat;1": {
-        "path" : "models/com-example-thermostat/1.json"
+        "path" : "models/com-example/thermostat-1.json"
     }
 }
 ```
@@ -41,15 +41,15 @@ The DTMI stored in the `model-index.json` is case sensitive, however based on th
 Allowed
 
 ```text
-dtmi:com:example:Thermostat;1 -> models/com-example-thermostat/1.json
-dtmi:com:example:thermostat;2 -> models/com-example-thermostat/2.json
+dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
+dtmi:com:example:thermostat;2 -> models/com-example/thermostat-2.json
 ```
 
 Dissalowed
 
 ```text
-dtmi:com:example:Thermostat;1 -> models/com-example-thermostat/1.json
-dtmi:com:example:thermostat;1 -> models/com-example-thermostat/1.json
+dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
+dtmi:com:example:thermostat;1 -> models/com-example/thermostat-1.json
 ```
 
 ### Relative Paths
@@ -60,14 +60,14 @@ For a model repo at `https://iotmodels.github.io/registry` the index and the ref
 
 ```rest
 https://iotmodels.github.io/registry/model-index.json
-https://iotmodels.github.io/registry/models/com-example-thermostat/1.json
+https://iotmodels.github.io/registry/models/com-example/thermostat-1.json
 ```
 
 The same folder structure can be used locally with local file paths
 
 ```rest
 C:\localModelRepo\model-index.json
-C:\localModelRepo\models\com-example-thermostat\1.json
+C:\localModelRepo\models\com-example\thermostat-1.json
 ```
 
 ## Dependencies
@@ -77,13 +77,13 @@ If the interface has any dependencies, via `extends` or `component interfaces`, 
 ```json
 {
     "dtmi:azure:DeviceManagement:DeviceInformation;1": {
-        "path": "models/azure-devicemanagement-deviceinformation/1.json"
+        "path": "models/azure-devicemanagement/deviceinformation-1.json"
       },
     "dtmi:com:example:Thermostat;1": {
-        "path" : "models/com-example-thermostat/1.json"
+        "path" : "models/com-example/thermostat-1.json"
     },
     "dtmi:com:example:TemperatureController;1": {
-        "path": "models/com-example-temperaturecontroller/1.json",
+        "path": "models/com-example/temperaturecontroller-1.json",
         "depends": [
           "dtmi:com:example:Thermostat;1",
           "dtmi:azure:DeviceManagement:DeviceInformation;1"
