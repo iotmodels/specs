@@ -11,8 +11,8 @@ A DTMI can be translated to a relative path with the following rules:
 - Folder name is based on the DTMI
   - Remove the `dtmi` prefix
   - Replace `:` with `-`
-  - Convert the lower case invariant
-- File name is the last DTMI segment plust the version number with the `.json` extension
+  - Convert to lower case invariant
+- File name is the last DTMI segment plus the version number with the `.json` extension
 
 ```text
 dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
@@ -38,14 +38,14 @@ The `model-index.json` file contains a JSON Map with all the DTMI and relative p
 
 The DTMI stored in the `model-index.json` is case sensitive, however based on the file/folder rules, only one DTMI can be stored with specific casing.
 
-Allowed
+Valid
 
 ```text
 dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
 dtmi:com:example:thermostat;2 -> models/com-example/thermostat-2.json
 ```
 
-Dissalowed
+Invalid
 
 ```text
 dtmi:com:example:Thermostat;1 -> models/com-example/thermostat-1.json
