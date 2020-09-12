@@ -1,4 +1,4 @@
-# Folder Convention Spec
+# Resolution Convention Spec
 
 A model is composed by a set of interfaces identified by a unique id in the form of a DTMI.
 
