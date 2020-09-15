@@ -23,7 +23,7 @@ Folders or files are associated to `CODEOWNERS` (Spec TBD) to ensure that any fu
 
 ### Casing
 
-Based on the file/folder rules, only one DTMI can be stored with specific casing.
+Based on the file/folder rules, only one DTMI can be stored regardless of id casing.
 
 :heavy_check_mark: Valid
 
